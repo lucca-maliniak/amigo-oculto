@@ -1,34 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import FormularioCadastro from "./components/FormularioCadastro"
+import ListaParticipantes from "./components/ListaParticipantes"
+import BotaoSortear from "./components/BotaoSortear"
+import { INFORMACOES_GLOBAIS } from "./global/INFORMACOES_GLOBAIS"
+import { Usuario } from "./model/Usuario"
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { usuariosAtuais_GLOBAL, setUsuariosAtuais_GLOBAL } = INFORMACOES_GLOBAIS()
+
+  const handleSortear = () => {
+    let listaIdAleatoria: number[] = []
+
+    do {
+      listaIdAleatoria = gerarAleatoriedade(usuariosAtuais_GLOBAL.map((_, id) => id));
+    } while (listaIdAleatoria.some((idAleatorio, index) => idAleatorio === index));
+
+    const listaSorteada = listaIdAleatoria.map((idAleatorio: number) => {
+      return usuariosAtuais_GLOBAL[idAleatorio];
+    })
+
+    vincularAmigosSecretos(listaSorteada)
+  }
+
+  const vincularAmigosSecretos = (listaSorteada: Usuario[]) => {
+    const listaVinculada: Usuario[] = usuariosAtuais_GLOBAL.map((u, id) => {
+      return {
+        ...u,
+        amigoOcultoSorteado: listaSorteada[id].nome
+      }
+    })
+
+    // TODO: REFLETIR OS AMIGOS SORTEADOS PARA GERAL
+  }
+
+  const gerarAleatoriedade = (listaId: number[]) => {
+    return listaId.sort(() => Math.random() - 0.5)
+  }   
+
+  // TODO: CONEXAO COM A API DO WPP PRA MANDAR MENSAGEM AUTOMATICA
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div>
+      <FormularioCadastro setUsuariosGlobal={setUsuariosAtuais_GLOBAL} />
+      <ListaParticipantes usuarios={usuariosAtuais_GLOBAL ?? []}/>
+      <BotaoSortear handleSortear={handleSortear} />
+    </div>
   )
 }
 
