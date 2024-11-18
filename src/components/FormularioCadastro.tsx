@@ -1,7 +1,7 @@
 import { Box, Grid2 } from "@mui/material";
 import BotaoConfirmar from "./BotaoConfirmar";
 import Input from "./Input";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Usuario } from "../model/Usuario";
 
 interface IFormularioCadastro {
@@ -10,41 +10,48 @@ interface IFormularioCadastro {
 
 export default function FormularioCadastro({setUsuariosGlobal}: IFormularioCadastro) {
     const [usuario, setUsuario] = useState<Usuario>({} as Usuario);
+    const [id, setId] = useState<number>(0);
 
     function handleConfirmar() {
+        setUsuario({...usuario, id: id + 1})
         setUsuariosGlobal(prev => [...prev, usuario])
-        setUsuario({nome: '', telefone: '', ideiasPresente: ''} as Usuario)
+
+        setId(id + 1)
+        setUsuario({nome: '', telefone: '', ideiasPresente: '', id: 0} as Usuario)
     }
 
     return (
-        <Grid2 container display={'flex'} flexDirection={'column'} width={'50vw'}>
+        <Grid2 container display={'flex'} flexDirection={'column'} width={'30rem'}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Input 
+                <Input
                     id="nome"
-                    titulo="Nome" 
+                    dadosUsuario={usuario.nome}
+                    titulo="Nome"
+                    placeholder="Nome"
                     variante='outlined'
                     required
-                    value={usuario.nome}
                     onChange={(e) => setUsuario({...usuario, nome: e.target.value})}
                 />
-                <Input 
+                <Input
                     id="telefone"
-                    titulo="Telefone" 
+                    dadosUsuario={usuario.telefone}
+                    titulo="Telefone"
+                    placeholder="(31) 99999-9999"
                     variante='outlined'
-                    value={usuario.telefone}
                     required
+                    fullWidth
                     onChange={(e) => setUsuario({...usuario, telefone: e.target.value})}
                 />
             </Box>
             <>
-                <Input 
+                <Input
                     id="presente"
-                    titulo="Ideias de Presente" 
+                    dadosUsuario={usuario.ideiasPresente}
+                    titulo="Ideias de Presente"
+                    placeholder="Presentes"
                     variante='outlined'
                     required
                     fullWidth
-
-                    value={usuario.ideiasPresente}
                     onChange={(e) => setUsuario({...usuario, ideiasPresente: e.target.value})}
                 />
             </>
