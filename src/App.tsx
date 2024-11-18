@@ -42,8 +42,6 @@ function App() {
     return listaId.sort(() => Math.random() - 0.5)
   }
 
-  console.log("Foi sorteado: ", foiSorteado)
-
   return (
     <div>
       <FormularioCadastro setUsuariosGlobal={setUsuariosAtuais_GLOBAL} />

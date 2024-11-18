@@ -1,4 +1,4 @@
-import { Divider, List, ListItem, ListItemIcon, ListItemText, Tooltip } from "@mui/material";
+import { Box, Divider, List, ListItem, ListItemIcon, ListItemText, Tooltip } from "@mui/material";
 import { Usuario } from "../model/Usuario";
 import { CircleUser, Eye, Trash } from "lucide-react";
 import { ElementType, useState } from "react";
@@ -47,7 +47,7 @@ export default function ListaParticipantes({ usuarios, setUsuariosGlobal }: ILis
         <>
             <List>
                 {usuarios && usuarios.map((u, id) => 
-                <>
+                <Box width={'100vw'}>
                     <ListItem key={id}>
                         <ListItemIcon>
                             <CircleUser size={45}/>
@@ -64,7 +64,7 @@ export default function ListaParticipantes({ usuarios, setUsuariosGlobal }: ILis
                         </ListItemIcon>
                     </ListItem>
                     <Divider component="li"/>
-                </>
+                </Box>
                 )}
             </List>
             <ModalMostrarAmigoSecreto aberto={modalRevelarAberto} fechar={() => setModalRevelarAberto(false)} usuarioSelecionado={usuarioSelecionado}/>

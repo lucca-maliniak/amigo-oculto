@@ -27,8 +27,8 @@ function ModalSorteando({...props}: IModalSorteando) {
         <Dialog open={props.aberto}>
             <Box display={'flex'} width={'20vw'} height={'50vh'} flexDirection={'column'} alignItems={'center'}>
                 <DialogTitle>
-                    <main style={{display: 'flex', width:'42%', fontWeight: 600, height: '8vh', justifyContent: 'space-between', alignItems: 'center'}}>
-                        SORTEANDO...
+                    <main>
+                        🎉 SORTEANDO...
                     </main>
                 </DialogTitle>
                 <DialogContent>
