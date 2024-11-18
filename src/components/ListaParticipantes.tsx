@@ -21,14 +21,13 @@ export default function ListaParticipantes({ usuarios, setUsuariosGlobal }: ILis
                 handleMostrarModal()
                 break
             case Trash:
-                handleExcluirParticipante()
+                handleExcluirParticipante(u)
                 break
         }
     }
 
-    const handleExcluirParticipante = () => {
-        const listaUsuariosFiltrados = usuarios.filter((usuario) => usuario.id !== usuarioSelecionado.id);
-        setUsuariosGlobal(listaUsuariosFiltrados);
+    const handleExcluirParticipante = (u: Usuario) => {
+        setUsuariosGlobal(prevUsuarios => (prevUsuarios.filter((usuario) => usuario.id !== u.id)));
     }   
 
     const handleMostrarModal = () => {
@@ -47,7 +46,7 @@ export default function ListaParticipantes({ usuarios, setUsuariosGlobal }: ILis
         <>
             <List>
                 {usuarios && usuarios.map((u, id) => 
-                <Box width={'100vw'}>
+                <Box width={'50vw'}>
                     <ListItem key={id}>
                         <ListItemIcon>
                             <CircleUser size={45}/>

@@ -9,8 +9,8 @@ import AlertaSucessoSorteio from "./components/AlertaSucessoSorteio"
 import './style/App.css'
 
 function App() {
-  const [modalSorteandoAberto, setModalSorteandoAberto] = useState<boolean>(false);
-  const [foiSorteado, setFoiSorteado] = useState<boolean>(false);
+  const [modalSorteandoAberto, setModalSorteandoAberto] = useState<boolean>(false)
+  const [foiSorteado, setFoiSorteado] = useState<boolean>(false)
   const { usuariosAtuais_GLOBAL, setUsuariosAtuais_GLOBAL } = INFORMACOES_GLOBAIS()
 
   const handleSortear = () => {
@@ -19,11 +19,11 @@ function App() {
     setModalSorteandoAberto(true)
 
     do {
-      listaIdAleatoria = gerarAleatoriedade(usuariosAtuais_GLOBAL.map((_, id) => id));
-    } while (listaIdAleatoria.some((idAleatorio, index) => idAleatorio === index));
+      listaIdAleatoria = gerarAleatoriedade(usuariosAtuais_GLOBAL.map((_, id) => id))
+    } while (listaIdAleatoria.some((idAleatorio, index) => idAleatorio === index))
 
     const listaSorteada = listaIdAleatoria.map((idAleatorio: number) => {
-      return usuariosAtuais_GLOBAL[idAleatorio];
+      return usuariosAtuais_GLOBAL[idAleatorio]
     })
 
     vincularAmigosSecretos(listaSorteada)
@@ -33,7 +33,7 @@ function App() {
     const listaVinculada = usuariosAtuais_GLOBAL.map((u, id) => ({
       ...u,
       amigoOcultoSorteado: listaSorteada[id],  
-    }));
+    }))
 
     setUsuariosAtuais_GLOBAL(listaVinculada)
   }
@@ -46,7 +46,7 @@ function App() {
     <div>
       <FormularioCadastro setUsuariosGlobal={setUsuariosAtuais_GLOBAL} />
       <ListaParticipantes usuarios={usuariosAtuais_GLOBAL ?? []} setUsuariosGlobal={setUsuariosAtuais_GLOBAL}/>
-      <BotaoSortear handleSortear={handleSortear} />
+      <BotaoSortear handleSortear={handleSortear} usuarios={usuariosAtuais_GLOBAL ?? []}/>
       <ModalSorteando aberto={modalSorteandoAberto} fechar={() => setModalSorteandoAberto(false)} setFoiSorteado={setFoiSorteado}/>
       <AlertaSucessoSorteio foiSorteado={foiSorteado} fecharAlerta={() => setFoiSorteado(false)} />
     </div>

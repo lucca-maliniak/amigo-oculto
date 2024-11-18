@@ -18,6 +18,6 @@ interface IPropsInput extends InputProps {
 
 export default function Input({...props}: IPropsInput) {
     return (  
-        <TextField placeholder={props.placeholder} error={props.erros?.possuiErro} helperText={props.erros ? props.erros.message : ''} value={props.dadosUsuario} label={props.titulo} variant={props.variante} margin="dense" onBlur={props.onBlur} onChange={props.onChange}/>
+        <TextField fullWidth placeholder={props.placeholder} error={props.erros?.possuiErro} helperText={props.erros ? props.erros.message : ''} value={props.dadosUsuario} label={props.titulo} variant={props.variante} margin="dense" onBlur={props.onBlur} onChange={props.onChange}/>
     )
 }

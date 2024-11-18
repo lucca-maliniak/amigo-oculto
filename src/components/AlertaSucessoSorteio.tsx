@@ -1,7 +1,7 @@
 import { Alert, Grow, Snackbar } from "@mui/material";
 
 interface IAlertaSucessoSorteio {
-    fecharAlerta: () => void
+    fecharAlerta: () => void;
     foiSorteado: boolean;
 }
 
