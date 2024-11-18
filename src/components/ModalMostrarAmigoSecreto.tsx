@@ -16,8 +16,8 @@ export default function ModalMostrarAmigoSecreto({...props}: IModalMostrarAmigoS
         return `Seu amigo secreto é: ${amigoOcultoSorteado.nome}, e os presentes pedidos foram: ${amigoOcultoSorteado.ideiasPresente}`
     }
 
-    const handleIrParaMensagemWpp = (amigoOcultoSorteado: Usuario) => {
-        const url = `https://wa.me/${amigoOcultoSorteado.telefone}/?text=${gerarMensagemWpp(amigoOcultoSorteado)}`
+    const handleIrParaMensagemWpp = (amigoOcultoSorteado: Usuario, usuario: Usuario) => {
+        const url = `https://wa.me/${usuario.telefone}/?text=${gerarMensagemWpp(amigoOcultoSorteado)}`
         window.open(url, '_blank') 
     }
 
@@ -31,7 +31,7 @@ export default function ModalMostrarAmigoSecreto({...props}: IModalMostrarAmigoS
                 <div>
                     Os presentes pedidos foram: <b>{props.usuarioSelecionado.amigoOcultoSorteado.ideiasPresente}</b>
                 </div>
-                <Button variant="outlined" onClick={() => handleIrParaMensagemWpp(props.usuarioSelecionado.amigoOcultoSorteado)}>Enviar Mensagem</Button>
+                <Button variant="outlined" onClick={() => handleIrParaMensagemWpp(props.usuarioSelecionado.amigoOcultoSorteado, props.usuarioSelecionado)}>Enviar Mensagem</Button>
             </DialogContent>
         </Dialog>
     )

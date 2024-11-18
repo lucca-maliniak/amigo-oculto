@@ -1,8 +1,9 @@
 import { Box, Grid2 } from "@mui/material";
 import BotaoConfirmar from "./BotaoConfirmar";
-import Input from "./Input";
-import { useEffect, useRef, useState } from "react";
+import Input, { IErrorValidator } from "./Input";
+import { useState } from "react";
 import { Usuario } from "../model/Usuario";
+import { z } from 'zod'
 
 interface IFormularioCadastro {
     setUsuariosGlobal: React.Dispatch<React.SetStateAction<Usuario[]>>
@@ -10,15 +11,43 @@ interface IFormularioCadastro {
 
 export default function FormularioCadastro({setUsuariosGlobal}: IFormularioCadastro) {
     const [usuario, setUsuario] = useState<Usuario>({} as Usuario);
+    const [error, setError] = useState<IErrorValidator>({} as IErrorValidator);
     const [id, setId] = useState<number>(0);
+    
+    const telefoneSchema = z.coerce.number({
+        required_error: 'O campo telefone é obrigatório',
+        invalid_type_error: 'Digite apenas números'
+    }).min(10000000, 'Telefone Inválido').max(99999999999, 'Telefone Inválido')
 
-    function handleConfirmar() {
-        setUsuario({...usuario, id: id + 1})
-        setUsuariosGlobal(prev => [...prev, usuario])
-
-        setId(id + 1)
-        setUsuario({nome: '', telefone: '', ideiasPresente: '', id: 0} as Usuario)
+    const handleConfirmar = () => {
+        const telefoneValidado = validarTelefone(usuario.telefone)
+        if (telefoneValidado) {
+            setUsuario({...usuario, id: id + 1})
+            setUsuariosGlobal(prev => [...prev, usuario])
+            setId(id + 1)
+            setUsuario({nome: '', telefone: '', ideiasPresente: '', id: 0} as Usuario)
+        }
     }
+
+    const validarTelefone = (valor: string) => {
+        if (!valor) {
+            setError({ possuiErro: false, message: '' })
+            return true
+        } 
+
+        const { success, error } = telefoneSchema.safeParse(valor)
+
+        if (!success) {
+            setError({
+                possuiErro: true,
+                message: error.issues[0]?.message || 'Erro desconhecido',
+            })
+            return false
+        }
+        setError({ possuiErro: false, message: '' })
+        return true 
+    }
+    
 
     return (
         <Grid2 container display={'flex'} flexDirection={'column'} width={'30rem'}>
@@ -39,8 +68,10 @@ export default function FormularioCadastro({setUsuariosGlobal}: IFormularioCadas
                     placeholder="(31) 99999-9999"
                     variante='outlined'
                     required
+                    erros={error}
                     fullWidth
                     onChange={(e) => setUsuario({...usuario, telefone: e.target.value})}
+                    onBlur={(e) => validarTelefone(e.target.value)}
                 />
             </Box>
             <>
