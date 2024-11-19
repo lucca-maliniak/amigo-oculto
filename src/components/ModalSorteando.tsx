@@ -1,18 +1,23 @@
 import { Box, Dialog, DialogContent, DialogTitle, Paper } from "@mui/material"
 import { useEffect } from "react";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { Usuario } from "../model/Usuario";
 
 interface IModalSorteando {
     aberto: boolean;
     fechar: () => void;
     setFoiSorteado: (x: boolean) => void;
+    usuariosGlobal: Usuario[];
 }
 
 function ModalSorteando({...props}: IModalSorteando) {
+    const matches = useMediaQuery('(min-width:1440px)')
     useEffect(() => {
         if (props.aberto) {
             fecharModal()
             setTimeout(() => {
                 props.setFoiSorteado(true)
+                enviarMensagem()
             }, 4000)
         }
     }, [props.aberto])
@@ -23,9 +28,28 @@ function ModalSorteando({...props}: IModalSorteando) {
         }, 4000)
     }
 
+    const enviarMensagem = () => {
+        props.usuariosGlobal.forEach(async (usuario) => {
+            const response = await fetch('http://localhost:8083/message/sendText/Lucca', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    "apikey": "zYzP7ocstxhSDDSWQZX3SJ23D4FZTCu4ehnM8v4hu",
+                },
+                body: JSON.stringify({
+                    "number": `5531${usuario.telefone}`,
+                    "textMessage": {
+                        "text": `*SORTEIO AMIGO OCULTO - R$ 70*\nO seu amigo oculto é *${usuario.amigoOcultoSorteado.nome}*\nAs ideias de presente são: *${usuario.amigoOcultoSorteado.ideiasPresente}*`
+                    }
+                })
+            })
+            return response.status
+        })
+    }
+
     return props.aberto && (
         <Dialog open={props.aberto}>
-            <Box display={'flex'} width={'20vw'} height={'50vh'} flexDirection={'column'} alignItems={'center'}>
+            <Box display={'flex'} width={matches ? '30vw' : '30vw'} height={matches ? '30vw' : '50vh'} flexDirection={'column'} alignItems={'center'}>
                 <DialogTitle>
                     <main>
                         🎉 SORTEANDO...

@@ -1,5 +1,6 @@
 import { Button, Dialog, DialogContent, DialogTitle } from "@mui/material";
 import { Usuario } from "../model/Usuario";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 interface IModalMostrarAmigoSecreto {
     usuarioSelecionado: Usuario;
@@ -8,6 +9,7 @@ interface IModalMostrarAmigoSecreto {
 }
 
 export default function ModalMostrarAmigoSecreto({...props}: IModalMostrarAmigoSecreto) { 
+    const matches = useMediaQuery('(min-width: 1440px)')
     if (!props.usuarioSelecionado || !props.usuarioSelecionado.amigoOcultoSorteado) {
         return null;
     }
@@ -24,7 +26,7 @@ export default function ModalMostrarAmigoSecreto({...props}: IModalMostrarAmigoS
     return props.usuarioSelecionado && (
         <Dialog onClose={props.fechar} open={props.aberto}>
             <DialogTitle fontWeight={600}>Sorteio Amigo Secreto - R$70</DialogTitle>
-            <DialogContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '10vh' }}>
+            <DialogContent sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: matches ? '15vh' : '10vh' }}>
                 <div>
                     Seu amigo secreto é: <b>{props.usuarioSelecionado.amigoOcultoSorteado.nome}</b>
                 </div>

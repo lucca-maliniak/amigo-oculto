@@ -14,10 +14,10 @@ export default function FormularioCadastro({setUsuariosGlobal}: IFormularioCadas
     const [error, setError] = useState<IErrorValidator>({} as IErrorValidator);
     let [id, setId] = useState<number>(0);
     
-    const telefoneSchema = z.coerce.number({
+    const telefoneSchema = z.string({
         required_error: 'O campo telefone é obrigatório',
         invalid_type_error: 'Digite apenas números'
-    }).min(10000000, 'Telefone Inválido').max(99999999999, 'Telefone Inválido')
+    }).min(9, 'Telefone Inválido').max(9, 'Telefone Inválido')
 
     const handleConfirmar = () => {
         const telefoneValidado = validarTelefone(usuario.telefone)

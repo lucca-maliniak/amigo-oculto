@@ -47,7 +47,7 @@ function App() {
       <FormularioCadastro setUsuariosGlobal={setUsuariosAtuais_GLOBAL} />
       <ListaParticipantes usuarios={usuariosAtuais_GLOBAL ?? []} setUsuariosGlobal={setUsuariosAtuais_GLOBAL}/>
       <BotaoSortear handleSortear={handleSortear} usuarios={usuariosAtuais_GLOBAL ?? []}/>
-      <ModalSorteando aberto={modalSorteandoAberto} fechar={() => setModalSorteandoAberto(false)} setFoiSorteado={setFoiSorteado}/>
+      <ModalSorteando aberto={modalSorteandoAberto} fechar={() => setModalSorteandoAberto(false)} setFoiSorteado={setFoiSorteado} usuariosGlobal={usuariosAtuais_GLOBAL}/>
       <AlertaSucessoSorteio foiSorteado={foiSorteado} fecharAlerta={() => setFoiSorteado(false)} />
     </div>
   )
