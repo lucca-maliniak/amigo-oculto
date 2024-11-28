@@ -39,7 +39,7 @@ function ModalSorteando({...props}: IModalSorteando) {
                 body: JSON.stringify({
                     "number": `5531${usuario.telefone}`,
                     "textMessage": {
-                        "text": `*SORTEIO AMIGO OCULTO - R$ 70*\nO seu amigo oculto é *${usuario.amigoOcultoSorteado.nome}*\nAs ideias de presente são: *${usuario.amigoOcultoSorteado.ideiasPresente}*`
+                        "text": `*SORTEIO AMIGO OCULTO - R$ 70*\nOlá, *${usuario.nome}*\nO seu amigo oculto é *${usuario.amigoOcultoSorteado.nome}*\nAs ideias de presente são: *${usuario.amigoOcultoSorteado.ideiasPresente}*`
                     }
                 })
             })

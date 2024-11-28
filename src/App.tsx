@@ -7,6 +7,7 @@ import { useState } from "react"
 import ModalSorteando from "./components/ModalSorteando"
 import AlertaSucessoSorteio from "./components/AlertaSucessoSorteio"
 import './style/App.css'
+import { listaAmigosOcultosAtual } from "./global/listaAmigosOcultosAtual"
 
 function App() {
   const [modalSorteandoAberto, setModalSorteandoAberto] = useState<boolean>(false)
@@ -35,7 +36,7 @@ function App() {
       amigoOcultoSorteado: listaSorteada[id],  
     }))
 
-    setUsuariosAtuais_GLOBAL(listaVinculada)
+    setUsuariosAtuais_GLOBAL(listaAmigosOcultosAtual)
   }
 
   const gerarAleatoriedade = (listaId: number[]) => {

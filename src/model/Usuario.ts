@@ -3,6 +3,12 @@ export interface Usuario {
     nome: string;
     telefone: string;
     ideiasPresente?: string;
-    amigoOcultoSorteado: Usuario;
-    jaFoiSorteado: boolean;
+    amigoOcultoSorteado: UsuarioSorteado;
+}
+
+export interface UsuarioSorteado {
+    id: number;
+    nome: string;
+    telefone: string;
+    ideiasPresente?: string;
 }

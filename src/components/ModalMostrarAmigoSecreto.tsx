@@ -1,5 +1,5 @@
 import { Button, Dialog, DialogContent, DialogTitle } from "@mui/material";
-import { Usuario } from "../model/Usuario";
+import { Usuario, UsuarioSorteado } from "../model/Usuario";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 interface IModalMostrarAmigoSecreto {
@@ -14,13 +14,25 @@ export default function ModalMostrarAmigoSecreto({...props}: IModalMostrarAmigoS
         return null;
     }
 
-    const gerarMensagemWpp = (amigoOcultoSorteado: Usuario) => {
-        return `Seu amigo secreto é: ${amigoOcultoSorteado.nome}, e os presentes pedidos foram: ${amigoOcultoSorteado.ideiasPresente}`
+    const gerarMensagemWpp = (amigoOcultoSorteado: UsuarioSorteado) => {
+        return `*ATUALIZAÇÃO DE PRESENTES DO AMIGO OCULTO*\nPedido de presentes atualizados: ${amigoOcultoSorteado.ideiasPresente}`
     }
 
-    const handleIrParaMensagemWpp = (amigoOcultoSorteado: Usuario, usuario: Usuario) => {
-        const url = `https://wa.me/${usuario.telefone}/?text=${gerarMensagemWpp(amigoOcultoSorteado)}`
-        window.open(url, '_blank') 
+    const handleIrParaMensagemWpp = async (amigoOcultoSorteado: UsuarioSorteado, usuario: Usuario) => {
+        const response = await fetch('http://localhost:8083/message/sendText/Lucca', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "apikey": "zYzP7ocstxhSDDSWQZX3SJ23D4FZTCu4ehnM8v4hu",
+            },
+            body: JSON.stringify({
+                "number": `5531${usuario.telefone}`,
+                "textMessage": {
+                    "text": gerarMensagemWpp(amigoOcultoSorteado)
+                }
+            })
+        })
+        return response.status
     }
 
     return props.usuarioSelecionado && (
