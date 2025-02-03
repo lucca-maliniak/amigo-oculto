@@ -4,6 +4,8 @@ Projeto desenvolvido com o intuito de ajudar na hora de sortear o amigo secreto 
 
 # Como Rodar
 
-1- Baixar o projeto
-2- Instalar as dependências com o `npm run`
-3- Rodar o projeto com `npm start`
+<ol>
+  <li>Baixar o projeto</li>
+  <li>Instalar as dependências com o `npm run`</li>
+  <li>Rodar o projeto com `npm start`</li>
+</ol>
