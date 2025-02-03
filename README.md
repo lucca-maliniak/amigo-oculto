@@ -10,4 +10,4 @@ Projeto desenvolvido com o intuito de ajudar na hora de sortear o amigo secreto 
   <li>Rodar o projeto com `npm start`</li>
 </ol>
 
-![image](https://github.com/user-attachments/assets/f190e733-c3cc-4cb9-8752-23eeef022b98)
+![image](https://github.com/user-attachments/assets/8dc8533b-2396-4e9f-8d1a-64df5e22818a)
